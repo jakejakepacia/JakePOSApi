@@ -1,0 +1,6 @@
+@JakePOSApi_HostAddress = http://localhost:5102
+
+GET {{JakePOSApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

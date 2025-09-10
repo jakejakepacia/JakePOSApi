@@ -42,6 +42,11 @@ namespace JakePOSApi.Services
             return OperationResult.SuccessResult("User registered successfully");
         }
 
+        public StoreAccount? GetStoreAccount(int id)
+        {
+            return _dbContext.StoreAccounts.Where(s => s.Id == id).FirstOrDefault();
+        }
+
         private bool CheckUsernameIfTaken(string username)
         {
             var user = _dbContext.StoreAccounts.FirstOrDefault(u => u.StoreUsername == username);

@@ -44,5 +44,17 @@ namespace JakePOSApi.Controllers
 
             return Ok(result.Message);
         }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public IActionResult GetStoreDetails(int id)
+        {
+            var store = _storeAccountService.GetStoreAccount(id);
+
+            if(store  == null)
+                return NotFound();
+
+            return Ok(store);
+        }
     }
   }

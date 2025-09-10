@@ -11,12 +11,25 @@ namespace JakePOSApi.Controllers
     [ApiController]
     public class StoreAccountController : ControllerBase
     {
-        private readonly ApplicationDbContext _dbContext;
         private readonly StoreAccountService _storeAccountService;
-        public StoreAccountController(ApplicationDbContext dbContext, StoreAccountService storeAccountService)
+        private readonly JwtService _jwtService;
+        public StoreAccountController(JwtService jwtService, StoreAccountService storeAccountService)
         {
-            _dbContext = dbContext;
             _storeAccountService = storeAccountService;
+            _jwtService = jwtService;
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("login")]
+        public async Task<ActionResult<LoginResponseModel>> Login(LoginRequestModel request)
+        {
+            var result = await _jwtService.Authenticate(request);
+
+            if (result == null)
+                return Unauthorized();
+
+            return result;
         }
 
         [AllowAnonymous]

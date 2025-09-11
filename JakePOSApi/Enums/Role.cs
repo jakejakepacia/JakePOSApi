@@ -3,7 +3,8 @@
     public enum Role
     {
         Administrator = 1,
-        StoreManager = 2,
-        Cashier = 3
+        StoreOwner = 2,
+        StoreManager = 3,
+        Cashier = 4
     }
 }

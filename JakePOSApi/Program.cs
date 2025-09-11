@@ -81,6 +81,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<StoreAccountService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<EmployeeService>();
+builder.Services.AddScoped<ProductService>();
 
 var app = builder.Build();
 

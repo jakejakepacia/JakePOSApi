@@ -36,7 +36,7 @@ namespace JakePOSApi.Services
             await _dbContext.Employees.AddAsync(newEmployee);
             await _dbContext.SaveChangesAsync();
 
-            return OperationResult.SuccessResult();
+            return OperationResult.SuccessResult("Successfully added employee");
 
         }
 

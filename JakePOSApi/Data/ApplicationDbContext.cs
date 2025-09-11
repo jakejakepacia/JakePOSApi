@@ -11,5 +11,7 @@ namespace JakePOSApi.Data
         }
 
         public DbSet<StoreAccount> StoreAccounts { get; set; }
+
+        public DbSet<Employee> Employees { get; set; }
     }
 }

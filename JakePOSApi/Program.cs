@@ -80,6 +80,7 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddScoped<StoreAccountService>();
 builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<EmployeeService>();
 
 var app = builder.Build();
 

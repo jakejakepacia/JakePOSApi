@@ -106,7 +106,7 @@ namespace JakePOSApi.Services
                 {
                   new Claim(ClaimTypes.NameIdentifier, storeAccount.Id.ToString()),
                   new Claim(ClaimTypes.Name, storeAccount.StoreUsername),
-                  new Claim(ClaimTypes.Role, "StoreManager")
+                  new Claim(ClaimTypes.Role, "StoreOwner")
                 }),
 
                 Expires = tokenExpiryTimeStamp,

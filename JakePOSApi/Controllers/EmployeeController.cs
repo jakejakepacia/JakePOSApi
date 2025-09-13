@@ -1,4 +1,5 @@
-﻿using JakePOSApi.Models.Api;
+﻿using JakePOSApi.Enums;
+using JakePOSApi.Models.Api;
 using JakePOSApi.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +18,7 @@ namespace JakePOSApi.Controllers
             _employeeService = employeeService;
         }
 
+        [Authorize(Roles = $"{nameof(Role.StoreOwner)}")]
         [HttpPost]
         [Route("addEmployee")]
         public async Task<IActionResult> AddEmployee(EmployeeRequestModel model)

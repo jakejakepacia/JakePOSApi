@@ -22,6 +22,10 @@ namespace JakePOSApi.Services
                 IsProcessedByOwner = orderRequestModel.IsProcessedByOwner,
                 OrderDateTime = DateTime.Now,
             };
+
+            _dbContext.StoreOrders.Add(newOrder);
+
+            return OperationResult.SuccessResult("Order placed");
         }
     }
 }

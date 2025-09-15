@@ -82,6 +82,7 @@ builder.Services.AddScoped<StoreAccountService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<EmployeeService>();
 builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<OrderService>();
 
 var app = builder.Build();
 

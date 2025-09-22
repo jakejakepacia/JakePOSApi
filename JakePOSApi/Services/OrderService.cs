@@ -1,6 +1,7 @@
 ﻿using JakePOSApi.Data;
 using JakePOSApi.Models.Api;
 using JakePOSApi.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace JakePOSApi.Services
 {
@@ -12,20 +13,28 @@ namespace JakePOSApi.Services
             _dbContext = dbContext;   
         }
 
-        public OperationResult AddOrder(OrderRequestModel orderRequestModel)
+        public int AddOrder(OrderRequestModel orderRequestModel)
         {
             var newOrder = new Order
             {
                 ProductIds = orderRequestModel.ProductIds,
                 StoreId = orderRequestModel.StoreId,
                 EmployeeId  = orderRequestModel.EmployeeId,
-                IsProcessedByOwner = orderRequestModel.IsProcessedByOwner,
-                OrderDateTime = DateTime.Now,
+                IsProcessedByOwner = orderRequestModel.EmployeeId == 0,
+                OrderDateTime = DateTime.UtcNow,
             };
 
             _dbContext.StoreOrders.Add(newOrder);
+            _dbContext.SaveChanges();
 
-            return OperationResult.SuccessResult("Order placed");
+            return newOrder.Id;
+        }
+
+        public async Task<List<Order>> GetOrdersAsync(int storeId)
+        {
+            var orders = await _dbContext.StoreOrders.Where(s => s.StoreId == storeId).ToListAsync();
+
+            return orders;
         }
     }
 }

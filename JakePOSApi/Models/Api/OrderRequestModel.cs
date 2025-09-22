@@ -6,7 +6,5 @@
         public decimal TotalAmount { get; set; }
         public int StoreId { get; set; }
         public int EmployeeId { get; set; }
-        public bool IsProcessedByOwner { get; set; }
-        public DateTime OrderDateTime { get; set; }
     }
 }

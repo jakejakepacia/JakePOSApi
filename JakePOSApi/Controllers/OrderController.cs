@@ -35,5 +35,14 @@ namespace JakePOSApi.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("{storeId}/{dateTime}")]
+        public async Task<IActionResult> GetOrdersByDate(int storeId, DateTime dateTime)
+        {
+            var result = await _orderService.GetOrdersByDateAsync(storeId, dateTime);
+
+            return Ok(result);
+        }
+
     }
 }

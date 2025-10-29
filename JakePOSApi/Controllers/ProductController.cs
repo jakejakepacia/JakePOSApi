@@ -35,5 +35,6 @@ namespace JakePOSApi.Controllers
 
             return Ok(result);
         }
+
     }
 }

@@ -38,5 +38,6 @@ namespace JakePOSApi.Services
 
             return products;
         }
+
     }
 }

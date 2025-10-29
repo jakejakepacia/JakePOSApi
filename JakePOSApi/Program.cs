@@ -8,6 +8,11 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5000);
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -37,13 +42,33 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+var config = builder.Configuration;
+var provider = config["DatabaseProvider"] ?? "SqlServer";
+var connStr = config.GetConnectionString(provider);
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"),
-    npgsqlOptions => npgsqlOptions.EnableRetryOnFailure())
-.EnableSensitiveDataLogging()
-.LogTo(Console.WriteLine, LogLevel.Information));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    if (provider.Equals("Postgres", StringComparison.OrdinalIgnoreCase))
+    {
+        options.UseNpgsql(connStr, npgsqlOptions =>
+        {
+            npgsqlOptions.EnableRetryOnFailure();
+        });
+    }
+    else
+    {
+        options.UseSqlServer(connStr, sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure();
+        });
+    }
 
-var connection = builder.Configuration.GetConnectionString("DefaultConnection");
+    // Common EF Core settings
+    options.EnableSensitiveDataLogging();
+    options.LogTo(Console.WriteLine, LogLevel.Information);
+});
+
+var connection = builder.Configuration.GetConnectionString(connStr);
 Console.WriteLine($"### USING DB CONNECTION: {connection}");
 
 
